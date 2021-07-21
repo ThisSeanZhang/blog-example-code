@@ -9,8 +9,84 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <compiler.version>11</compiler.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <build.plugins.plugin.version>3.8.1</build.plugins.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Premain-Class>io.whileaway.example.PremainDemo</Premain-Class>
+                            <Agent-Class>io.whileaway.example.AgentDemo</Agent-Class>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- 绑定到package生命周期阶段上 -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${build.plugins.plugin.version}</version>
+            </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-shade-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>shade</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <shadedArtifactAttached>false</shadedArtifactAttached>-->
+<!--                            <createDependencyReducedPom>true</createDependencyReducedPom>-->
+<!--                            <createSourcesJar>true</createSourcesJar>-->
+<!--                            <shadeSourcesContent>true</shadeSourcesContent>-->
+<!--                            <relocations>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>${shade.net.bytebuddy.source}</pattern>-->
+<!--                                    <shadedPattern>${shade.net.bytebuddy.target}</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>${shade.com.google.gson.source}</pattern>-->
+<!--                                    <shadedPattern>${shade.com.google.gson.target}</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>${shade.org.apache.kafka.source}</pattern>-->
+<!--                                    <shadedPattern>${shade.org.apache.kafka.target}</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                            </relocations>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+
+        </plugins>
+    </build>
 </project>
