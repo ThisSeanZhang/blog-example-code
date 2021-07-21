@@ -1,2 +1,2 @@
-# blog-example-code
-[My Blog](https://blog.whileaway.io/)Example Code
+# Blog Example Code
+[My Blog] (https://blog.whileaway.io/)Example Code
